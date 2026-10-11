@@ -11,14 +11,14 @@ static const uint8_t CMD_WRITE = 0x40;
 //   0 = internal regulator/doubler OFF (REGEN=0). VLCD comes from the VLCD pin, which on
 //       this module appears to be fed from VDD. Contrast follows VDD (3.3 V here).
 //   1 = internal regulator/doubler ON  (REGEN=1). VLCD = 2 x VREG = about 3.0 V, fixed,
-//       and it fights an external connection to VLCD.
+//       THIS IS THE LOW CURRENT MODE
 #define AP650_INTERNAL_VLCD 0
 
 #if AP650_INTERNAL_VLCD
 static const uint8_t LCDCTR_ON    = 0x3D;   // HI_DRV, BIAS0, BIAS1, REGEN, LCDEN
 static const uint8_t LCDCTR_BLANK = 0x3F;   // same as ON but LCDCLR=1 (glass blank, RAM kept)
 #else
-static const uint8_t LCDCTR_ON    = 0x11;   // Low-driving bias, REGEN off, LCDEN on
+static const uint8_t LCDCTR_ON    = 0x11;   // Low-driving bias, REGEN ON, LCDEN on, LOWEST CURRENT MODE FOUND
 static const uint8_t LCDCTR_BLANK = 0x13;   // Same as ON but LCDCLR=1 (glass blank, RAM kept)
 #endif
 static const uint8_t LCDCTR_OFF   = 0x00;
